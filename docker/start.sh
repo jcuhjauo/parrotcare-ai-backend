@@ -3,6 +3,14 @@ set -e
 
 cd /var/www/html
 
+# 清掉 build 階段留下的舊快取(可能包含錯誤的空值設定)
+php artisan config:clear
+php artisan route:clear
+
+# 用「現在真正拿到的」環境變數重新建立快取
+php artisan config:cache
+php artisan route:cache
+
 # 確保 storage 連結存在(圖片可公開存取用,免費方案下重啟後本機檔案仍會消失,僅供過渡)
 php artisan storage:link || true
 

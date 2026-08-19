@@ -28,9 +28,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 # 複製其餘程式碼
 COPY . .
 
-RUN composer dump-autoload --optimize \
-    && php artisan config:cache \
-    && php artisan route:cache
+RUN composer dump-autoload --optimize
 
 # 權限設定
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
