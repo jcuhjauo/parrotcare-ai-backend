@@ -11,6 +11,10 @@ php artisan route:clear
 php artisan config:cache
 php artisan route:cache
 
+# 上面幾個指令用 root 執行,可能動到檔案權限,這裡修正回來
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
 # 確保 storage 連結存在(圖片可公開存取用,免費方案下重啟後本機檔案仍會消失,僅供過渡)
 php artisan storage:link || true
 
