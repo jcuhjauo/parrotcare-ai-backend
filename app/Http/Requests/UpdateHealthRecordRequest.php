@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHealthRecordRequest extends FormRequest
+class UpdateHealthRecordRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,6 @@ class StoreHealthRecordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'parrot_id' => ['required', 'integer', 'exists:parrots,id'],
             'clinic_name' => ['nullable', 'string'],
             'clinic_phone' => ['nullable', 'string'],
             'clinic_address' => ['nullable', 'string'],
@@ -34,8 +33,6 @@ class StoreHealthRecordRequest extends FormRequest
             'total_amount' => ['nullable', 'numeric'],
             'next_visit_date' => ['nullable', 'date'],
             'notes' => ['nullable', 'string'],
-            'ai_confidence' => ['nullable', 'string', 'in:high,medium,low'],
-            'image_path' => ['required', 'string'],
         ];
     }
 }

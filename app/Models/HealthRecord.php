@@ -12,9 +12,18 @@ class HealthRecord extends Model
 
     protected $fillable = [
         'parrot_id',
+        'clinic_name',
+        'clinic_phone',
+        'clinic_address',
+        'owner_name',
+        'owner_phone',
+        'pet_name',
+        'species',
         'visit_date',
         'weight_grams',
         'medications',
+        'line_items',
+        'total_amount',
         'next_visit_date',
         'notes',
         'ai_confidence',
@@ -25,6 +34,7 @@ class HealthRecord extends Model
         'visit_date' => 'date',
         'next_visit_date' => 'date',
         'medications' => 'array',
+        'line_items' => 'array',
     ];
 
     public function parrot(): BelongsTo
