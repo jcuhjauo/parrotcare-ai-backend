@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # 安裝系統套件與 PHP 需要的擴充套件
 RUN apk add --no-cache \
