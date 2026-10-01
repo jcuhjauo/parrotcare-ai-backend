@@ -2,6 +2,8 @@
 set -e
 
 cd /var/www/html
+# 把 nginx 監聽埠換成平台提供的 PORT（沒有的話用 8080）
+sed -i "s/__PORT__/${PORT:-8080}/g" /etc/nginx/http.d/default.conf
 
 # 清掉 build 階段留下的舊快取(可能包含錯誤的空值設定)
 php artisan config:clear
