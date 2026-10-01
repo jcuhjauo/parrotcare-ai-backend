@@ -18,7 +18,12 @@ class HealthRecordScanController extends Controller
 
     public function index(): JsonResponse
     {
-        $records = HealthRecord::with('parrot')->latest()->get();
+        $records = HealthRecord::with('parrot')
+            ->whereHas('parrot', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->latest()
+            ->get();
 
         return response()->json(['records' => $records]);
     }
@@ -46,8 +51,10 @@ class HealthRecordScanController extends Controller
         return response()->json(['record' => $record], 201);
     }
 
-        public function update(UpdateHealthRecordRequest $request, HealthRecord $healthRecord): JsonResponse
+    public function update(UpdateHealthRecordRequest $request, HealthRecord $healthRecord): JsonResponse
     {
+        abort_if($healthRecord->parrot->user_id !== auth()->id(), 403);
+
         $healthRecord->update($request->validated());
 
         return response()->json(['record' => $healthRecord]);
@@ -55,6 +62,8 @@ class HealthRecordScanController extends Controller
 
     public function destroy(HealthRecord $healthRecord): JsonResponse
     {
+        abort_if($healthRecord->parrot->user_id !== auth()->id(), 403);
+
         $healthRecord->delete();
 
         return response()->json(['message' => '已刪除'], 200);
